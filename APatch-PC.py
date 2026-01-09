@@ -1,6 +1,6 @@
 import os
 import sys
-
+#这是Little的代码,如果看到了这个注释请多多支持
 def patch_boot_img(boot_img_path, password="root1234"):
     if not os.path.exists(boot_img_path):
         print(f"错误: 文件不存在 - {boot_img_path}")
@@ -57,4 +57,5 @@ if __name__ == "__main__":
             patch_boot_img(dragged_file)
     else:
         show_usage()
+
         input()
