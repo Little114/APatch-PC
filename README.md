@@ -1,48 +1,35 @@
-# APatch-PC - Android Boot Image 修补工具
+# APatch-PC - Android Boot IMG 修补工具
 
-一个用于修补Android设备boot.img文件的Windows工具，支持APatch内核修补功能。
+一个用于修补Android设备boot.img文件的Windows工具
 
 ## 功能特性
 
 - 🔧 **一键修补** - 简单拖拽即可完成boot.img修补
-- 🔒 **安全可靠** - 支持自定义AP密码保护
-- 🖥️ **跨环境兼容** - 支持Python脚本和编译后的可执行文件
+- 🔒 **自定义密码** - 支持自定义AP密码保护
+- 🖥️ **跨环境兼容** - 还有Python脚本源文件来尝试自己diy
 - 📦 **完整打包** - 包含所有必要的工具和资源文件
 
 ## 快速开始
 
-### 方法一：使用可执行文件（推荐）
+### 方法一：使用拖拽的方法修补（推荐）
 
-1. 下载 `APatch-PC.exe` 文件
-2. 将 `boot.img` 文件拖拽到 `APatch-PC.exe` 上
-3. 按照提示完成修补过程
-
-### 方法二：使用Python脚本
+1. 下载 `APatch_EXE.zip` 文件[win平台]
+2. 将 `boot.img` 文件拖拽到 `APatch-PC` 上
+3. 等待自动修补
+4. 修补完成,当前目录多出APatch_boot.img
+### 方法二：使用脚本加指令
 
 1. 确保已安装Python 3.6+
 2. 运行以下命令：
 ```bash
-python APatch-PC.py boot.img [密码]
+APatch-PC boot.img [密码]
 ```
+3. 等待修补完毕生成APatch_boot.img
 
 **参数说明：**
 - `boot.img`：需要修补的boot镜像文件路径
 - `[密码]`：可选参数，自定义AP密码（默认：root1234）
 
-## 项目结构
-
-```
-APatch-PC/
-├── APatch-PC.py          # 主程序脚本
-├── APatch-PC.exe         # 编译后的可执行文件
-├── magiskboot.exe        # boot镜像解包/打包工具
-├── kptools-x86_64-win.exe # 内核修补工具
-├── APatch.kpimg-android  # APatch内核镜像
-├── boot.img              # 示例boot镜像文件
-└── README.md             # 项目说明文档
-```
-
-## 技术实现
 
 ### 修补流程
 
@@ -52,28 +39,6 @@ APatch-PC/
 4. **重新打包** - 将修补后的内核重新打包为boot镜像
 5. **清理临时文件** - 删除过程中生成的临时文件
 
-### 兼容性设计
-
-项目采用PyInstaller兼容设计，支持两种运行模式：
-
-- **开发模式**：直接运行Python脚本，使用当前目录资源
-- **打包模式**：运行编译后的exe，自动从临时目录加载资源
-
-```python
-def resource_path(relative_path):
-    """获取资源的绝对路径，兼容开发和打包环境"""
-    if getattr(sys, 'frozen', False):
-        return os.path.join(sys._MEIPASS, relative_path)
-    return os.path.join(os.path.abspath("."), relative_path)
-```
-
-## 编译说明
-
-如需自行编译，请使用以下命令：
-
-```bash
-pyinstaller --add-data "magiskboot.exe;." --add-data "kptools-x86_64-win.exe;." --add-data "APatch.kpimg-android;." --onefile APatch-PC.py
-```
 
 ## 注意事项
 
@@ -83,8 +48,6 @@ pyinstaller --add-data "magiskboot.exe;." --add-data "kptools-x86_64-win.exe;." 
 - 修补后的镜像仅适用于支持APatch的设备
 - 使用前请确认设备兼容性
 - 错误的修补可能导致设备无法启动
-
-## 故障排除
 
 ### 常见问题
 
@@ -103,25 +66,14 @@ pyinstaller --add-data "magiskboot.exe;." --add-data "kptools-x86_64-win.exe;." 
 
 ## 许可证
 
-本项目基于开源许可证发布，具体许可证信息请查看LICENSE文件。
-
-## 贡献
-
-欢迎提交Issue和Pull Request来改进这个项目！
-
-## 更新日志
-
-### v1.0.0 (2024-01-09)
-- 初始版本发布
-- 支持基本的boot.img修补功能
-- 实现跨环境兼容性
-- 提供可执行文件和Python脚本两种使用方式
+本项目未使用任何开源许可，其全部著作权归原作者所有。
+未经作者书面许可，不得复制、修改、分发或用于商业用途。
 
 ## 相关链接
 
 - [APatch官方文档](https://apatch.dev)
-- [Magisk项目](https://github.com/topjohnwu/Magisk)
-- [Android Boot Image格式说明](https://source.android.com/docs/core/architecture/bootloader/boot-image-header)
+- [Apatch官方GitHub](https://github.com/bmax121/APatch)
+- [KernelPatch官方GitHub](https://github.com/bmax121/KernelPatch)
 
 ---
 
